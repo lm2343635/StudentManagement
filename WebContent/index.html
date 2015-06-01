@@ -1,0 +1,88 @@
+﻿<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>教务管理系统</title>
+		<style>
+			#bg
+			{
+				position:relative;
+				width: 994px;
+				height: 540px;
+				background:url(images/index.jpg) no-repeat;
+				margin: 0px auto;
+				position:relative;
+			}
+			#login
+			{
+				background:url(images/index_03.gif);
+				height:153px;
+				width: 266px;
+				position:absolute;
+				top:230px;
+				left:588px;
+			}
+		</style>
+	</head>
+	<body style="background:url(images/topbg.gif) top repeat-x; margin:0;">
+		 <div id="bg" align="center">
+		  <div id="login" >
+		       <form action="public/loginHandle.jsp" method="post"  id="index" name="index">
+		         <p>
+		         	用户名：<input type="text" name="user"  onBlur="isUserEmpty()">
+		         </p>
+		         <p>
+		         	密&nbsp;  码：<input type="password" name="password" onBlur="isPasswordEmpty()">
+		         </p>
+		         学生<input type="radio" name="userType"  value="student" checked >&nbsp;
+		         教师<input type="radio" name="userType"  value="teacher">&nbsp;
+		         管理员<input type="radio" name="userType"  value="admin">&nbsp;
+		         <p>
+		         <input type="button" value="登录"  onclick="submitVerify()">
+		         <input type="reset" value="重置">
+		         <input type="button" value="注册"  onclick="window.location.href='public/register.html'">
+		         </p>
+		    </form> 
+		  </div>
+		 </div>
+	</body>
+</html>
+
+<script type="text/javascript">
+function isUserEmpty()
+{
+	var user=index.user.value;
+	if(user=="")
+		alert("请输入用户名");
+}
+function isPasswordEmpty()
+{
+	var password=index.password.value;
+	if(password=="")
+		alert("请输入密码");
+}
+
+function submitVerify()
+{
+	var user=index.user.value;
+	var password=index.password.value;
+	var userType=getRadioBoxValue("userType");
+	if(userType=="student"&&user.length!=8)
+		alert("用户类型错误，学生用户名为8位");
+	if(userType=="teacher"&&user.length!=6)
+		alert("用户类型错误，教师用户名为6位");
+	if(userType=="admin"&&user.length!=3)
+		alert("用户类型错误，管理员用户名为3位");
+	if(userType=="student"&&user.length==8||userType=="teacher"&&user.length==6||userType=="admin"&&user.length==3)
+		document.getElementById("index").submit();
+}
+function getRadioBoxValue(radioName)  
+{   
+    var obj = document.getElementsByName(radioName);         
+      for(i=0;i<obj.length;i++)    
+      {  
+          if(obj[i].checked)    
+             return  obj[i].value;  
+      }          
+     return "undefined";        
+}  
+</script>
